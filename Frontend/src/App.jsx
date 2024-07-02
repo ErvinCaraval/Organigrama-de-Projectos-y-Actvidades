@@ -3,8 +3,14 @@ import { Navigation } from "./components/Navigation";
 import { TaskFormPage } from "./pages/TaskFormPage";
 import { TasksPage } from "./pages/TasksPage";
 import { Toaster } from "react-hot-toast";
-import { ProjestsPage } from "./pages/ProjectsPage";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+import 'react-toastify/dist/ReactToastify.css';
+
+
+
 import { ProjectFormPage } from "./pages/ProjectFormPage";
+import ProjectTablePage from "./pages/ProjectTablePage";
 
 function App() {
   return (
@@ -17,9 +23,10 @@ function App() {
           <Route path="/tasks" element={<TasksPage />} />
           <Route path="/tasks/:id" element={<TaskFormPage />} />
           <Route path="/tasks-create" element={<TaskFormPage />} />
-          <Route path="/projects" element={<ProjestsPage />} />
           <Route path="/projects/:id" element={<ProjectFormPage />} />
           <Route path="/project-create" element={<ProjectFormPage />} />
+
+          <Route path="/projects" element={<ProjectTablePage />} />
         </Routes>
         <Toaster />
       </div>

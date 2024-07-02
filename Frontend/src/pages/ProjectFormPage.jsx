@@ -39,6 +39,8 @@ export function ProjectFormPage() {
     const onSubmit = handleSubmit(async (data) => {
         data.fecha_inicio = data.fecha_inicio ? new Date(data.fecha_inicio).toISOString() : null;
         data.fecha_fin = data.fecha_fin ? new Date(data.fecha_fin).toISOString() : null;
+        data.sin_terminar = !!data.sin_terminar; // Convertir a booleano
+        data.terminado = !!data.terminado; // Convertir a booleano
 
         try {
             if (params.id) {
@@ -95,6 +97,8 @@ export function ProjectFormPage() {
                     setValue("fecha_inicio", data.fecha_inicio ? data.fecha_inicio.substring(0, 16) : null);
                     setValue("fecha_fin", data.fecha_fin ? data.fecha_fin.substring(0, 16) : null);
                     setSelectedProject(projects.find(project => project.proyecto_id === data.proyecto));
+                    setValue("sin_terminar", data.sin_terminar); // Asignar valor a sin_terminar
+                    setValue("terminado", data.terminado); // Asignar valor a terminado
                 } catch (error) {
                     console.error('Error al cargar la tarea:', error);
                 }
@@ -174,13 +178,35 @@ export function ProjectFormPage() {
                     {errors.fecha_inicio && <span className="text-red-500">{errors.fecha_inicio.message}</span>}
                 </div>
 
-                <div className="mb-6">
+                <div className="mb-4">
                     <label className="block text-white mb-2">Fecha de Fin</label>
                     <input
                         type="datetime-local"
                         {...register("fecha_fin")}
                         className="bg-gray-800 text-white p-3 rounded-lg block w-full"
                     />
+                </div>
+
+                <div className="mb-4">
+                    <label className="block text-white mb-2">
+                        <input
+                            type="checkbox"
+                            {...register("sin_terminar")}
+                            className="mr-2"
+                        />
+                        Tarea sin terminar
+                    </label>
+                </div>
+
+                <div className="mb-4">
+                    <label className="block text-white mb-2">
+                        <input
+                            type="checkbox"
+                            {...register("terminado")}
+                            className="mr-2"
+                        />
+                        Tarea terminada
+                    </label>
                 </div>
 
                 <button

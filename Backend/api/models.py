@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils import timezone
 from django.core.exceptions import ValidationError
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
 
 class Proyecto(models.Model):
     proyecto_id = models.AutoField(primary_key=True)
@@ -10,7 +12,8 @@ class Proyecto(models.Model):
     fecha_fin = models.DateTimeField(blank=True, null=True)
     creado_en = models.DateTimeField(auto_now_add=True)
     actualizado_en = models.DateTimeField(auto_now=True)
-    
+    terminado = models.BooleanField(default=False)  # Campo para marcar el proyecto como terminado
+
     def clean(self):
         if self.fecha_inicio and self.fecha_fin:
             if self.fecha_fin < self.fecha_inicio:
@@ -28,6 +31,8 @@ class Tarea(models.Model):
     fecha_fin = models.DateTimeField(blank=True, null=True)
     creado_en = models.DateTimeField(auto_now_add=True)
     actualizado_en = models.DateTimeField(auto_now=True)
+    sin_terminar = models.BooleanField(default=True)  # Campo para tareas no terminadas
+    terminado = models.BooleanField(default=False)     # Campo para tareas terminadas
 
     def clean(self):
         # Verificar que la fecha de inicio de la tarea está dentro del rango del proyecto
@@ -40,6 +45,16 @@ class Tarea(models.Model):
 
     def __str__(self):
         return self.nombre
+
+@receiver(post_save, sender=Tarea)
+@receiver(post_delete, sender=Tarea)
+def actualizar_estado_proyecto(sender, instance, **kwargs):
+    proyecto = instance.proyecto
+    if proyecto:
+        tareas_sin_terminar = proyecto.tareas.filter(sin_terminar=True).exists()
+        if not tareas_sin_terminar:
+            proyecto.terminado = True
+            proyecto.save()
 
 class Registro(models.Model):
     registro_id = models.AutoField(primary_key=True)

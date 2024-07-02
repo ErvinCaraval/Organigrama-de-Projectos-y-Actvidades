@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const tasksApi = axios.create({
-  baseURL: "http://localhost:8000/api/v1/api/proyectos",
+  baseURL: "http://localhost:8000/api/v1/api/proyectos/",
 });
 
 export const getAllTasks = () => {
@@ -21,5 +21,5 @@ export const updateTask = (id, task) => {
 }
 
 export const deleteTask = (id) => {
-  return tasksApi.delete(`/${id}`);
+  return tasksApi.delete(`/${id}/`);
 }
