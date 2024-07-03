@@ -23,7 +23,7 @@ export function Navigation() {
               Visualizar Proyectos
             </button>
           </Link>
-          <Link to="/tasks">
+          <Link to="/sasks">
             <button className="bg-yellow-500 hover:bg-yellow-700 text-white p-3 rounded-lg transition duration-200">
               Visualizar Tareas
             </button>

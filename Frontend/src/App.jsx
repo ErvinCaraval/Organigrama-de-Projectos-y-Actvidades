@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { ProjectFormPage } from "./pages/ProjectFormPage";
 import ProjectTablePage from "./pages/ProjectTablePage";
+import TaskTablePage from "./pages/TaskTablePage"
 
 function App() {
   return (
@@ -26,7 +27,9 @@ function App() {
           <Route path="/projects/:id" element={<ProjectFormPage />} />
           <Route path="/project-create" element={<ProjectFormPage />} />
 
-          <Route path="/projects" element={<ProjectTablePage />} />
+          <Route path="/projects" element={<ProjectTablePage/>} />
+          <Route path="/sasks" element={<TaskTablePage/>} />
+          
         </Routes>
         <Toaster />
       </div>
