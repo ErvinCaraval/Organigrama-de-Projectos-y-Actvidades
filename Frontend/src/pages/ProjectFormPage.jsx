@@ -35,6 +35,8 @@ export function ProjectFormPage() {
         loadProjects();
     }, []);
 
+ 
+
     // Función para manejar el envío del formulario
     const onSubmit = handleSubmit(async (data) => {
         data.fecha_inicio = data.fecha_inicio ? new Date(data.fecha_inicio).toISOString() : null;
@@ -44,7 +46,7 @@ export function ProjectFormPage() {
 
         try {
             if (params.id) {
-                await updateTask(params.id, data);
+                await updateTask(params.id, sanitizeData(data));
                 toast.success("Tarea actualizada", {
                     position: "bottom-right",
                     style: {
@@ -53,7 +55,7 @@ export function ProjectFormPage() {
                     },
                 });
             } else {
-                await createTask(data);
+                await createTask(sanitizeData(data));
                 toast.success("Nueva Tarea agregada", {
                     position: "bottom-right",
                     style: {
@@ -114,6 +116,24 @@ export function ProjectFormPage() {
         const project = projects.find(project => project.proyecto_id === selectedProjectId);
         setSelectedProject(project);
         setValue("proyecto", selectedProjectId);
+    };
+
+    // Función para sanitizar los datos antes de enviarlos al backend
+    const sanitizeData = (data) => {
+        const sanitizedData = {
+            ...data,
+            nombre: sanitizeInput(data.nombre),
+            descripcion: sanitizeInput(data.descripcion),
+        };
+        return sanitizedData;
+    };
+
+    // Función para sanitizar la entrada contra inyección SQL
+    const sanitizeInput = (input) => {
+        if (!input) return input;
+        // Eliminar caracteres especiales que podrían ser parte de un ataque de SQL injection
+        const sanitizedInput = input.replace(/[;'"\\]/g, '');
+        return sanitizedInput;
     };
 
     return (
@@ -219,3 +239,47 @@ export function ProjectFormPage() {
         </div>
     );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    

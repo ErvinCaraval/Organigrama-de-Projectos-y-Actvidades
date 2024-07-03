@@ -16,7 +16,7 @@ export function TaskFormPage() {
   const params = useParams();
 
   const onSubmit = handleSubmit(async (data) => {
-    // Convert dates to ISO format if necessary
+    // Convertir fechas a formato ISO si es necesario
     data.fecha_inicio = data.fecha_inicio ? new Date(data.fecha_inicio).toISOString() : null;
     data.fecha_fin = data.fecha_fin ? new Date(data.fecha_fin).toISOString() : null;
 

@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from .models import Proyecto, Tarea 
-from django.core.exceptions import ValidationError
+from .models import Proyecto, Tarea
 from django.utils import timezone
+import re
 
 class ProyectoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,11 +9,31 @@ class ProyectoSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def validate(self, attrs):
-        if attrs.get('fecha_inicio') and attrs.get('fecha_fin'):
-            if attrs['fecha_fin'] < attrs['fecha_inicio']:
-                raise serializers.ValidationError('La fecha de fin no puede ser anterior a la fecha de inicio del proyecto.')
-        return attrs
+        nombre = attrs.get('nombre')
+        descripcion = attrs.get('descripcion')
+        fecha_inicio = attrs.get('fecha_inicio')
+        fecha_fin = attrs.get('fecha_fin')
 
+        # Validación de fecha de inicio y fin
+        if fecha_inicio and fecha_fin:
+            if fecha_fin < fecha_inicio:
+                raise serializers.ValidationError('La fecha de fin no puede ser anterior a la fecha de inicio del proyecto.')
+
+        # Validación de nombre
+        if nombre:
+            if not re.match(r'^[\w\s]+$', nombre):
+                raise serializers.ValidationError('El nombre del proyecto solo debe contener caracteres alfanuméricos y espacios.')
+            if len(nombre.split()) > 20:
+                raise serializers.ValidationError('El nombre del proyecto no puede exceder 20 palabras.')
+
+        # Validación de descripción
+        if descripcion:
+            if len(descripcion) > 250:
+                raise serializers.ValidationError('La descripción no puede exceder 250 caracteres.')
+            if not re.match(r'^[\w\s.,!?\-\'"]*$', descripcion):
+                raise serializers.ValidationError('La descripción contiene caracteres no permitidos.')
+
+        return attrs
 
 class TareaSerializer(serializers.ModelSerializer):
     class Meta:
@@ -21,10 +41,21 @@ class TareaSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def validate(self, attrs):
+        nombre = attrs.get('nombre')
+        descripcion = attrs.get('descripcion')
         fecha_inicio_tarea = attrs.get('fecha_inicio')
         fecha_fin_tarea = attrs.get('fecha_fin')
         proyecto = attrs.get('proyecto')
+        sin_terminar = attrs.get('sin_terminar')
+        terminado = attrs.get('terminado')
 
+        # Validación de estado de tarea
+        if sin_terminar and terminado:
+            raise serializers.ValidationError('Una tarea no puede estar marcada como sin terminar y terminada al mismo tiempo.')
+        if not sin_terminar and not terminado:
+            raise serializers.ValidationError('Una tarea debe estar marcada como sin terminar o terminada.')
+
+        # Validación de fecha de inicio y fin de la tarea
         if fecha_inicio_tarea and fecha_fin_tarea:
             if fecha_fin_tarea < fecha_inicio_tarea:
                 raise serializers.ValidationError('La fecha de fin no puede ser anterior a la fecha de inicio de la tarea.')
@@ -45,5 +76,18 @@ class TareaSerializer(serializers.ModelSerializer):
                 if fecha_fin_proyecto and fecha_fin_tarea > fecha_fin_proyecto:
                     raise serializers.ValidationError('La fecha de fin de la tarea no puede ser posterior a la fecha de fin del proyecto.')
 
-        return attrs
+        # Validación de nombre
+        if nombre:
+            if not re.match(r'^[\w\s]+$', nombre):
+                raise serializers.ValidationError('El nombre de la tarea solo debe contener caracteres alfanuméricos y espacios.')
+            if len(nombre.split()) > 20:
+                raise serializers.ValidationError('El nombre de la tarea no puede exceder 20 palabras.')
 
+        # Validación de descripción
+        if descripcion:
+            if len(descripcion) > 250:
+                raise serializers.ValidationError('La descripción no puede exceder 250 caracteres.')
+            if not re.match(r'^[\w\s.,!?\-\'"]*$', descripcion):
+                raise serializers.ValidationError('La descripción contiene caracteres no permitidos.')
+
+        return attrs
