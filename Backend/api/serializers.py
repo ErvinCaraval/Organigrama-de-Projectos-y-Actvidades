@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Proyecto, Tarea, Registro, RegistroAuditoria
+from .models import Proyecto, Tarea 
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 
@@ -47,12 +47,3 @@ class TareaSerializer(serializers.ModelSerializer):
 
         return attrs
 
-class RegistroSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Registro
-        fields = '__all__'
-
-class RegistroAuditoriaSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = RegistroAuditoria
-        fields = '__all__'

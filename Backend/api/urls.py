@@ -8,8 +8,7 @@ from rest_framework.documentation import include_docs_urls
 router = DefaultRouter()
 router.register(r'proyectos', views.ProyectoViewSet)
 router.register(r'tareas', views.TareaViewSet)
-router.register(r'registros', views.RegistroViewSet)
-router.register(r'registros-auditoria', views.RegistroAuditoriaViewSet)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),

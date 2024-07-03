@@ -1,8 +1,8 @@
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Proyecto, Tarea, Registro, RegistroAuditoria
-from .serializers import ProyectoSerializer, TareaSerializer, RegistroSerializer, RegistroAuditoriaSerializer
+from .models import Proyecto, Tarea
+from .serializers import ProyectoSerializer, TareaSerializer
 from django.core.exceptions import ValidationError
 
 class ProyectoViewSet(viewsets.ModelViewSet):
@@ -25,10 +25,3 @@ class TareaViewSet(viewsets.ModelViewSet):
         except ValidationError as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
-class RegistroViewSet(viewsets.ModelViewSet):
-    queryset = Registro.objects.all()
-    serializer_class = RegistroSerializer
-
-class RegistroAuditoriaViewSet(viewsets.ModelViewSet):
-    queryset = RegistroAuditoria.objects.all()
-    serializer_class = RegistroAuditoriaSerializer

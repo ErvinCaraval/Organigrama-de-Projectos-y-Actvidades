@@ -54,36 +54,7 @@ def actualizar_estado_proyecto(sender, instance, **kwargs):
         tareas_sin_terminar = proyecto.tareas.filter(sin_terminar=True).exists()
         if not tareas_sin_terminar:
             proyecto.terminado = True
-            proyecto.save()
+        else:
+            proyecto.terminado = False
+        proyecto.save()
 
-class Registro(models.Model):
-    registro_id = models.AutoField(primary_key=True)
-    proyecto = models.ForeignKey(Proyecto, on_delete=models.CASCADE, blank=True, null=True, related_name='registros')
-    tarea = models.ForeignKey(Tarea, on_delete=models.CASCADE, blank=True, null=True, related_name='registros')
-    accion = models.CharField(max_length=50)
-    fecha_registro = models.DateTimeField(auto_now_add=True)
-    usuario_id = models.ForeignKey('auth.User', on_delete=models.SET_NULL, blank=True, null=True)
-
-    def __str__(self):
-        if self.proyecto:
-            return f"Registro de Proyecto: {self.proyecto.nombre} - Acción: {self.accion}"
-        elif self.tarea:
-            return f"Registro de Tarea: {self.tarea.nombre} - Acción: {self.accion}"
-        return f"Registro - Acción: {self.accion}"
-
-class RegistroAuditoria(models.Model):
-    auditoria_id = models.AutoField(primary_key=True)
-    usuario = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    accion = models.CharField(max_length=50)
-    fecha_registro = models.DateTimeField(auto_now_add=True)
-    proyecto = models.ForeignKey(Proyecto, on_delete=models.CASCADE, blank=True, null=True, related_name='auditorias')
-    tarea = models.ForeignKey(Tarea, on_delete=models.CASCADE, blank=True, null=True, related_name='auditorias')
-
-    def __str__(self):
-        related_object = self.proyecto if self.proyecto else self.tarea
-        return f"Auditoría - Usuario: {self.usuario.username} - Acción: {self.accion} - Objeto: {related_object}"
-
-    def clean(self):
-        # Asegurar que al menos uno de proyecto o tarea esté presente
-        if not self.proyecto and not self.tarea:
-            raise ValidationError('Debe especificar un proyecto o una tarea para la auditoría.')
