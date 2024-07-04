@@ -12,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ProjectFormPage } from "./pages/ProjectFormPage";
 import ProjectTablePage from "./pages/ProjectTablePage";
 import TaskTablePage from "./pages/TaskTablePage"
-
+import   TaskTimeline   from "./pages/TaskTimeline"
 function App() {
   return (
     <BrowserRouter>
@@ -29,6 +29,7 @@ function App() {
 
           <Route path="/projects" element={<ProjectTablePage/>} />
           <Route path="/sasks" element={<TaskTablePage/>} />
+          <Route path="/task-timeline" element={<TaskTimeline/>} />
           
         </Routes>
         <Toaster />

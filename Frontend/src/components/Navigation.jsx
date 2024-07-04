@@ -28,6 +28,11 @@ export function Navigation() {
               Visualizar Tareas
             </button>
           </Link>
+          <Link to="/task-timeline">
+            <button className="bg-purple-500 hover:bg-purple-700 text-white p-3 rounded-lg transition duration-200">
+              Visualizar Línea de Tiempo
+            </button>
+          </Link>
         </div>
       </div>
     </nav>
