@@ -56,11 +56,6 @@ const TaskTimeline = () => {
     }
   }, [selectedProject, tasks]);
 
-  // Función para formatear el contenido de la línea de tiempo
-  const formatTimelineContent = (task) => {
-    return `${task.nombre} \n ${task.start.toLocaleString()} - ${task.end ? task.end.toLocaleString() : 'Sin terminar'}`;
-  };
-
   return (
     <div className="container mt-5">
       <ToastContainer />
@@ -80,12 +75,16 @@ const TaskTimeline = () => {
         </Form.Control>
       </Card>
       <div className="timeline-container">
-        <h2>Timeline de Tareas por Proyecto</h2>
+       
         <div className="timeline">
           {filteredTasks.map((task, index) => (
             <div key={index} className={`timeline-item ${task.end ? 'completed' : 'intermediate'}`}>
+              <div className="timeline-description">
+                <p>{task.descripcion}</p>
+              </div>
               <div className="timeline-content">
-                <p>{formatTimelineContent(task)}</p>
+                <p>{task.nombre}</p>
+                <p>{task.start.toLocaleString()} - {task.end ? task.end.toLocaleString() : 'Sin terminar'}</p>
               </div>
             </div>
           ))}
