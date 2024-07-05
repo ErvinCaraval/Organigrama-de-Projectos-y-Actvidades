@@ -109,7 +109,7 @@ const ProjectTablePage = () => {
       <Card className="p-3 mb-3">
         <Form.Control
           type="text"
-          placeholder="Search by Project ID"
+          placeholder="Buscar por ID del Projecto "
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="form-control"
