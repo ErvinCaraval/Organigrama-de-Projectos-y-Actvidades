@@ -1,33 +1,48 @@
 version: '4'
 
 services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    
+    command: sh -c "sleep 10 && python manage.py runserver 0.0.0.0:8000"
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+    depends_on:
+      - db
+    volumes:
+      - .:/code
+    stdin_open: true
+    tty: true
+    networks:
+      - backend
+
   db:
-    image: postgres:latest
-    container_name: DB
+    build:
+      context: .
+      dockerfile: Dockerfile.db
+
     restart: always
     environment:
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
+    networks:
+      - backend
 
-  web:
-    build: .
-    container_name: WEB
-    command: python manage.py runserver 0.0.0.0:8000
-    restart: always
-    ports:
-      - "8000:8000"
-    environment:
-      DB_NAME: ${DB_NAME}
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
-      DB_HOST: db
-    depends_on:
-      - db
+networks:
+  backend:
 
 volumes:
   db_data:
