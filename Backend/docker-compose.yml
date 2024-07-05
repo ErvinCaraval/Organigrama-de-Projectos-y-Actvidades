@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: WEB
+
     
     command: sh -c "sleep 10 && python manage.py runserver 0.0.0.0:8000"
     restart: always
@@ -28,6 +30,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.db
+    container_name: DB
 
     restart: always
     environment:
