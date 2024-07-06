@@ -78,7 +78,7 @@ TEMPLATES = [
     },
 ]
 
-# Configura el logging básico para capturar solo las peticiones relevante
+# Configura el logging básico para capturar solo las peticiones relevant
 logging.basicConfig(
     filename='management_actions.log',  # Nombre del archivo de registro
     level=DEBUG,                # Nivel de registro DEBUG para capturar todas las peticiones
