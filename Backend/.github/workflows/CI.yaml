@@ -3,7 +3,11 @@ name: CI
 on:
   pull_request:
     branches:
-      - main
+      - develop
+      - develop-ervin
+      - develop-kelly
+      - deploy-test
+      - deploy
 
 jobs:
   test-and-analyze:
@@ -11,20 +15,18 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Convert shallow clone to full clone
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
 
       - name: Build and run tests using Docker Compose
-        run: docker-compose -f Backend/docker-compose.yml up --build -d db web tests
+        run: docker-compose -f docker-compose.yaml up --build -d db web tests
 
       - name: Upload coverage report
         uses: actions/upload-artifact@v3
         with:
           name: coverage-report
-          path: Backend/coverage.xml
+          path: ./coverage.xml
 
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@v2.1.0
