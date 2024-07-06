@@ -1,6 +1,8 @@
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+import logging
+from django.utils.log import CallbackFilter
 
 # Cargar las variables de entorno desde el archivo .env
 load_dotenv()
@@ -75,6 +77,14 @@ TEMPLATES = [
         },
     },
 ]
+
+# Configura el logging básico para capturar solo las peticiones relevantes
+logging.basicConfig(
+    filename='management_actions.log',  # Nombre del archivo de registro
+    level=DEBUG,                # Nivel de registro DEBUG para capturar todas las peticiones
+    format='%(asctime)s - %(levelname)s - %(message)s'  # Formato del mensaje de registro
+)
+
 
 WSGI_APPLICATION = 'drf.wsgi.application'
 
