@@ -39,33 +39,23 @@ services:
     networks:
       - backend
 
-  sonarqube:
-    image: sonarqube:community
-    container_name: sonarqube
-    restart: always
-    ports:
-      - "9000:9000"
-    networks:
-      - backend
-    environment:
-      - SONAR_JDBC_URL=jdbc:postgresql://db:5432/${DB_NAME}
-      - SONAR_JDBC_USERNAME=${DB_USER}
-      - SONAR_JDBC_PASSWORD=${DB_PASSWORD}
-
-  sonarscanner:
-    image: sonarsource/sonar-scanner-cli:latest
-    container_name: sonarscanner
-    depends_on:
-      - sonarqube
+  tests:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: TESTS
+    command: sh -c "sleep 10 && coverage run manage.py test && coverage xml"
     volumes:
-      - .:/usr/src
+      - .:/code
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
     networks:
       - backend
-    environment:
-      - SONAR_HOST_URL=http://sonarqube:9000
-      - SONAR_LOGIN=sqp_89d3889c271e825b4f4064ec45472041350d044b  # Token de acceso a SonarQube
-
-    entrypoint: ["/opt/sonar-scanner/bin/sonar-scanner"]
 
 networks:
   backend:
