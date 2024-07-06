@@ -34,7 +34,7 @@ class Proyecto(models.Model):
         if len(self.nombre.split()) > 20:
             raise ValidationError('El nombre del proyecto no puede exceder 20 palabras.')
 
-        # Validar que la descripción no exceda 250 caracteres y no contenga caracteres inseguros
+        # Validar que la descripción no exceda 250 caracteres y no contenga caracteres inseguro
         if self.descripcion:
             if len(self.descripcion) > 250:
                 raise ValidationError('La descripción no puede exceder 250 caracteres.')
