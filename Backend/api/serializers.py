@@ -26,7 +26,7 @@ class ProyectoSerializer(serializers.ModelSerializer):
             if len(nombre.split()) > 20:
                 raise serializers.ValidationError('El nombre del proyecto no puede exceder 20 palabras.')
 
-        # Validación de descripción
+        # Validación de descripció
         if descripcion:
             if len(descripcion) > 250:
                 raise serializers.ValidationError('La descripción no puede exceder 250 caracteres.')
