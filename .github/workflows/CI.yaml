@@ -11,6 +11,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Convert shallow clone to full clone
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -26,7 +28,5 @@ jobs:
 
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@v2.1.0
-        with:
-          projectBaseDir: Backend
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
