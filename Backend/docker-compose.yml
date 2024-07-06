@@ -3,7 +3,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: WEB
     command: sh -c "sleep 10 && python manage.py runserver 0.0.0.0:8000"
     restart: always
     ports:
@@ -26,7 +25,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.db
-    container_name: DB
     restart: always
     environment:
       POSTGRES_DB: ${DB_NAME}
@@ -43,7 +41,6 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
-    container_name: TESTS
     command: sh -c "sleep 10 && coverage run manage.py test && coverage xml"
     volumes:
       - .:/code
