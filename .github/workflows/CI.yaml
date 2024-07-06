@@ -22,11 +22,11 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: coverage-report
-          path: ./coverage.xml
+          path: Backend/coverage.xml
 
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@v2.1.0
+        with:
+          projectBaseDir: Backend
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-  
