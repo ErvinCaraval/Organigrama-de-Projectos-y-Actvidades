@@ -3,11 +3,8 @@ name: CI
 on:
   pull_request:
     branches:
-      - develop
-      - develop-ervin
-      - develop-kelly
-      - deploy-test
-      - deploy
+      - main
+ 
 
 jobs:
   test-and-analyze:
