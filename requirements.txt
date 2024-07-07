@@ -19,3 +19,4 @@ whitenoise==6.6.0
 django-cors-headers
 coreapi
 pytest==6.2.5
+locust

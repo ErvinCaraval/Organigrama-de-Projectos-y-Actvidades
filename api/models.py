@@ -1,5 +1,4 @@
-# Importaciones necesarias
-from django.db import models
+from django.db import models, transaction
 from django.utils import timezone
 from django.core.exceptions import ValidationError
 from django.db.models.signals import post_save, post_delete
@@ -7,10 +6,8 @@ from django.dispatch import receiver
 import re
 import logging
 
-# Configuración del logger
 logger = logging.getLogger(__name__)
 
-# Modelo Proyecto
 class Proyecto(models.Model):
     proyecto_id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=255, unique=True)
@@ -53,7 +50,6 @@ def log_proyecto_actions(sender, instance, created, **kwargs):
 def log_proyecto_delete(sender, instance, **kwargs):
     logger.info(f"Proyecto {instance.nombre} DELETED - ID: {instance.proyecto_id}")
 
-# Modelo Tarea
 class Tarea(models.Model):
     tarea_id = models.AutoField(primary_key=True)
     proyecto = models.ForeignKey(Proyecto, on_delete=models.CASCADE, related_name='tareas')
@@ -100,8 +96,9 @@ class Tarea(models.Model):
         return self.nombre
 
     def save(self, *args, **kwargs):
-        super(Tarea, self).save(*args, **kwargs)
-        self.actualizar_estado_proyecto()
+        with transaction.atomic():
+            super(Tarea, self).save(*args, **kwargs)
+            self.actualizar_estado_proyecto()
 
     def actualizar_estado_proyecto(self):
         proyecto = self.proyecto
@@ -109,10 +106,9 @@ class Tarea(models.Model):
             tareas_sin_terminar = proyecto.tareas.filter(sin_terminar=True)
             if not tareas_sin_terminar.exists():
                 proyecto.terminado = True
-                proyecto.save()
             else:
                 proyecto.terminado = False
-                proyecto.save()
+            proyecto.save()
 
 # Señales para el modelo Tarea
 @receiver(post_save, sender=Tarea)
