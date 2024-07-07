@@ -1,6 +1,6 @@
-from rest_framework import serializers
+from rest_framework import serializers, exceptions
 from .models import Proyecto, Tarea
-from django.utils import timezone
+from django.db import transaction, IntegrityError
 import re
 
 class ProyectoSerializer(serializers.ModelSerializer):
@@ -26,7 +26,7 @@ class ProyectoSerializer(serializers.ModelSerializer):
             if len(nombre.split()) > 20:
                 raise serializers.ValidationError('El nombre del proyecto no puede exceder 20 palabras.')
 
-        # Validación de descripci
+        # Validación de descripción
         if descripcion:
             if len(descripcion) > 250:
                 raise serializers.ValidationError('La descripción no puede exceder 250 caracteres.')
@@ -34,6 +34,20 @@ class ProyectoSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError('La descripción contiene caracteres no permitidos.')
 
         return attrs
+
+    def create(self, validated_data):
+        try:
+            with transaction.atomic():
+                return super().create(validated_data)
+        except IntegrityError:
+            raise exceptions.ValidationError('Ha ocurrido un error al crear el proyecto.')
+
+    def update(self, instance, validated_data):
+        try:
+            with transaction.atomic():
+                return super().update(instance, validated_data)
+        except IntegrityError:
+            raise exceptions.ValidationError('Ha ocurrido un error al actualizar el proyecto.')
 
 class TareaSerializer(serializers.ModelSerializer):
     class Meta:
@@ -60,6 +74,7 @@ class TareaSerializer(serializers.ModelSerializer):
             if fecha_fin_tarea < fecha_inicio_tarea:
                 raise serializers.ValidationError('La fecha de fin no puede ser anterior a la fecha de inicio de la tarea.')
 
+        # Validación de fechas respecto al proyecto asociado
         if proyecto:
             fecha_inicio_proyecto = proyecto.fecha_inicio
             fecha_fin_proyecto = proyecto.fecha_fin
@@ -91,3 +106,17 @@ class TareaSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError('La descripción contiene caracteres no permitidos.')
 
         return attrs
+
+    def create(self, validated_data):
+        try:
+            with transaction.atomic():
+                return super().create(validated_data)
+        except IntegrityError:
+            raise exceptions.ValidationError('Ha ocurrido un error al crear la tarea.')
+
+    def update(self, instance, validated_data):
+        try:
+            with transaction.atomic():
+                return super().update(instance, validated_data)
+        except IntegrityError:
+            raise exceptions.ValidationError('Ha ocurrido un error al actualizar la tarea.')

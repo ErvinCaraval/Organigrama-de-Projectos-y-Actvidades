@@ -8,10 +8,10 @@ services:
     ports:
       - "8000:8000"
     environment:
-      DB_HOST: ${DB_HOST}
-      DB_NAME: ${DB_NAME}
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
     depends_on:
       - db
     volumes:
@@ -38,7 +38,7 @@ services:
       - backend
 
   tests:
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile
     command: sh -c "sleep 10 && coverage run manage.py test && coverage xml"
