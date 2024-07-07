@@ -35,3 +35,86 @@
 2024-07-06 18:06:03,374 - WARNING - Not Found: /favicon.ico
 2024-07-06 18:06:26,688 - INFO - GET request for Proyecto gggg - ID: None
 2024-07-06 18:06:26,692 - INFO - Proyecto gggg CREATED - ID: 1
+2024-07-06 23:29:40,643 - INFO - Watching for file changes with StatReloader
+2024-07-06 23:31:01,788 - INFO - GET request for Proyecto ok - ID: None
+2024-07-06 23:31:01,792 - INFO - Proyecto ok CREATED - ID: 1
+2024-07-06 23:31:30,711 - INFO - GET request for Tarea d2 in Proyecto ok - ID: None
+2024-07-06 23:31:30,716 - INFO - Tarea d2 CREATED en Proyecto ok - ID: 1
+2024-07-06 23:31:40,563 - INFO - GET request for Tarea d2 in Proyecto ok - ID: 1
+2024-07-06 23:31:40,567 - INFO - Tarea d2 UPDATED en Proyecto ok - ID: 1
+2024-07-06 23:32:27,875 - WARNING - Not Found: /
+2024-07-06 23:32:28,054 - WARNING - Not Found: /favicon.ico
+2024-07-06 23:32:39,213 - WARNING - Not Found: /api/v1/
+2024-07-06 23:36:22,385 - INFO - /code/api/models.py changed, reloading.
+2024-07-06 23:36:23,848 - INFO - Watching for file changes with StatReloader
+2024-07-06 23:36:42,194 - INFO - Tarea d2 UPDATED en Proyecto ok - ID: 1
+2024-07-06 23:36:42,199 - INFO - Proyecto ok UPDATED - ID: 1
+2024-07-06 23:37:15,091 - INFO - Tarea d2 DELETED en Proyecto ok - ID: 1
+2024-07-06 23:37:18,409 - INFO - Proyecto ok DELETED - ID: 1
+2024-07-06 23:37:35,238 - INFO - Proyecto bbbb CREATED - ID: 2
+2024-07-06 23:38:04,982 - INFO - Tarea bbbrr CREATED en Proyecto bbbb - ID: 2
+2024-07-06 23:38:04,986 - INFO - Proyecto bbbb UPDATED - ID: 2
+2024-07-06 23:38:10,897 - INFO - Tarea bbbrr UPDATED en Proyecto bbbb - ID: 2
+2024-07-06 23:38:10,903 - INFO - Proyecto bbbb UPDATED - ID: 2
+2024-07-06 23:39:28,308 - INFO - Tarea bbbrr DELETED en Proyecto bbbb - ID: 2
+2024-07-06 23:39:28,313 - INFO - Proyecto bbbb DELETED - ID: 2
+2024-07-06 23:43:47,061 - INFO - Proyecto wwww CREATED - ID: 3
+2024-07-06 23:46:08,093 - INFO - Proyecto qq CREATED - ID: 4
+2024-07-06 23:47:13,242 - INFO - Tarea fffff CREATED en Proyecto wwww - ID: 3
+2024-07-06 23:47:13,245 - INFO - Proyecto wwww UPDATED - ID: 3
+2024-07-06 23:47:24,139 - INFO - Tarea fffff UPDATED en Proyecto wwww - ID: 3
+2024-07-06 23:47:24,143 - INFO - Proyecto wwww UPDATED - ID: 3
+2024-07-06 23:56:59,344 - WARNING - Not Found: /api/v1/proyectos/
+2024-07-06 23:56:59,360 - WARNING - Not Found: /api/v1/proyectos/
+2024-07-06 23:57:09,916 - WARNING - Not Found: /api/v1/proyectos/
+2024-07-06 23:57:09,928 - WARNING - Not Found: /api/v1/proyectos/
+2024-07-07 00:00:41,456 - WARNING - Bad Request: /api/v1/api/tareas/3/
+2024-07-07 00:00:52,335 - WARNING - Bad Request: /api/v1/api/tareas/3/
+2024-07-07 00:01:27,643 - INFO - Tarea fffff UPDATED en Proyecto wwww - ID: 3
+2024-07-07 00:01:27,648 - INFO - Proyecto wwww UPDATED - ID: 3
+2024-07-07 00:01:37,377 - INFO - Tarea fffff UPDATED en Proyecto wwww - ID: 3
+2024-07-07 00:01:37,381 - INFO - Proyecto wwww UPDATED - ID: 3
+2024-07-07 00:05:31,132 - WARNING - Bad Request: /api/v1/api/tareas/3/
+2024-07-07 00:08:08,019 - WARNING - Bad Request: /api/v1/api/tareas/3/
+2024-07-07 00:08:35,588 - INFO - Tarea fffff DELETED en Proyecto wwww - ID: 3
+2024-07-07 00:09:55,911 - INFO - Tarea xxxxx CREATED en Proyecto wwww - ID: 4
+2024-07-07 00:09:55,914 - INFO - Proyecto wwww UPDATED - ID: 3
+2024-07-07 00:10:16,514 - WARNING - Bad Request: /api/v1/api/tareas/4/
+2024-07-07 00:10:21,041 - WARNING - Bad Request: /api/v1/api/tareas/4/
+2024-07-07 00:10:25,601 - INFO - Tarea xxxxx DELETED en Proyecto wwww - ID: 4
+2024-07-07 00:15:49,806 - WARNING - Not Found: /api/v1/proyectos/
+2024-07-07 00:15:49,824 - WARNING - Not Found: /api/v1/proyectos/
+2024-07-07 00:16:49,921 - INFO - Tarea sqq CREATED en Proyecto wwww - ID: 5
+2024-07-07 00:16:49,926 - INFO - Proyecto wwww UPDATED - ID: 3
+2024-07-07 00:17:02,111 - INFO - Tarea sqq UPDATED en Proyecto wwww - ID: 5
+2024-07-07 00:17:02,125 - INFO - Proyecto wwww UPDATED - ID: 3
+2024-07-07 00:17:50,594 - INFO - Tarea eeee CREATED en Proyecto wwww - ID: 6
+2024-07-07 00:17:50,599 - INFO - Proyecto wwww UPDATED - ID: 3
+2024-07-07 00:18:01,679 - INFO - Tarea eeee UPDATED en Proyecto wwww - ID: 6
+2024-07-07 00:18:01,683 - INFO - Proyecto wwww UPDATED - ID: 3
+2024-07-07 00:18:12,131 - INFO - Tarea eeee UPDATED en Proyecto wwww - ID: 6
+2024-07-07 00:18:12,135 - INFO - Proyecto wwww UPDATED - ID: 3
+2024-07-07 00:32:23,143 - INFO - Tarea eeee UPDATED en Proyecto wwww - ID: 6
+2024-07-07 00:32:23,148 - INFO - Proyecto wwww UPDATED - ID: 3
+2024-07-07 00:32:42,882 - INFO - Tarea sqq DELETED en Proyecto wwww - ID: 5
+2024-07-07 00:32:43,987 - INFO - Tarea eeee DELETED en Proyecto wwww - ID: 6
+2024-07-07 00:33:50,780 - INFO - Tarea dddd CREATED en Proyecto wwww - ID: 7
+2024-07-07 00:33:50,783 - INFO - Proyecto wwww UPDATED - ID: 3
+2024-07-07 00:35:34,881 - INFO - Tarea dddd DELETED en Proyecto wwww - ID: 7
+2024-07-07 00:35:58,730 - INFO - Tarea ccccc CREATED en Proyecto wwww - ID: 8
+2024-07-07 00:35:58,734 - INFO - Proyecto wwww UPDATED - ID: 3
+2024-07-07 00:36:09,913 - INFO - Tarea ccccc UPDATED en Proyecto wwww - ID: 8
+2024-07-07 00:36:09,918 - INFO - Proyecto wwww UPDATED - ID: 3
+2024-07-07 00:42:51,086 - INFO - Tarea ccccc DELETED en Proyecto wwww - ID: 8
+2024-07-07 00:43:39,221 - INFO - Tarea dssss CREATED en Proyecto wwww - ID: 9
+2024-07-07 00:43:39,226 - INFO - Proyecto wwww UPDATED - ID: 3
+2024-07-07 00:43:51,203 - INFO - Tarea dssss UPDATED en Proyecto wwww - ID: 9
+2024-07-07 00:43:51,207 - INFO - Proyecto wwww UPDATED - ID: 3
+2024-07-07 00:51:46,584 - INFO - Tarea dssss DELETED en Proyecto wwww - ID: 9
+2024-07-07 00:51:49,923 - INFO - Proyecto qq DELETED - ID: 4
+2024-07-07 00:51:50,860 - INFO - Proyecto wwww DELETED - ID: 3
+2024-07-07 00:53:13,200 - INFO - Proyecto aaaa CREATED - ID: 5
+2024-07-07 00:53:40,538 - INFO - Tarea sf CREATED en Proyecto aaaa - ID: 10
+2024-07-07 00:53:40,541 - INFO - Proyecto aaaa UPDATED - ID: 5
+2024-07-07 00:54:21,348 - INFO - Tarea sf UPDATED en Proyecto aaaa - ID: 10
+2024-07-07 00:54:21,352 - INFO - Proyecto aaaa UPDATED - ID: 5
