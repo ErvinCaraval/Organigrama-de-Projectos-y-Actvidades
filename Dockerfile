@@ -12,7 +12,7 @@ WORKDIR /code
 COPY requirements.txt /code/
 RUN pip install -r requirements.txt
 
-# Copy the rest of the application codebase into the container
+# Copy the rest of the application codebase into the containe
 COPY . /code/
 
 # Expone el puerto 8000 para que pueda ser accesible desde fuera del contenedor
