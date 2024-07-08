@@ -19,7 +19,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1','web']
 
 # Application definition
 
@@ -49,6 +49,7 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
    "http://localhost:5173",
+   'http://localhost:8089', 
 ]
 
 CORS_ALLOW_METHODS = [
@@ -76,6 +77,18 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
 ]
 
 # Configura el logging básico para capturar solo las peticiones relevan

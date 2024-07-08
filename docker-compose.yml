@@ -3,6 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    image: ervincaravaliibarra/webbackend:latest
     command: sh -c "sleep 10 && python manage.py runserver 0.0.0.0:8000"
     restart: always
     ports:
@@ -25,6 +26,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.db
+    image: ervincaravaliibarra/dbbackend:latest
     restart: always
     environment:
       POSTGRES_DB: ${DB_NAME}
@@ -41,16 +43,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: sh -c "sleep 10 && coverage run manage.py test && coverage xml"
+    command: sh -c "locust -f locust/locustfile.py"
     volumes:
       - .:/code
     depends_on:
-      - db
-    environment:
-      - DB_HOST=${DB_HOST}
-      - DB_NAME=${DB_NAME}
-      - DB_USER=${DB_USER}
-      - DB_PASSWORD=${DB_PASSWORD}
+      - web
+    ports:
+      - "8090:8089" 
     networks:
       - backend
 
