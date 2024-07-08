@@ -12,6 +12,9 @@ WORKDIR /code
 COPY requirements.txt /code/
 RUN pip install -r requirements.txt
 
+
+COPY manage.py /code/
+
 # Copy the rest of the application codebase into the containe
 COPY . /code/
 
