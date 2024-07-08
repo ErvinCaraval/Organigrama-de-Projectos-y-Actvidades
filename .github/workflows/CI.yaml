@@ -1,4 +1,4 @@
-name: CI 
+name: Upload to Docker Hub
 
 on:
   pull_request:
@@ -7,25 +7,19 @@ on:
  
 
 jobs:
-  test-and-analyze:
+  build_and_push:
+    needs: test-and-analyze
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
-
-      - name: Build and run tests using Docker Compose
-        run: docker-compose -f docker-compose.yml up --build -d db web tests
-
-      - name: Upload coverage report
-        uses: actions/upload-artifact@v3
-        with:
-          name: coverage-report
-          path: ./coverage.xml
-
-      - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@v2.1.0
+      - name: Build and push images
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: |
+          docker-compose build
+          echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+          docker-compose push
